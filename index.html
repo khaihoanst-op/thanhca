@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thánh Ca Cộng Đồng – Giáo xứ Kim Bịch</title>
+<link rel="icon" href="assets/logo.png">
+<style>
+/* Font tiêu đề: UTM Alexander – dùng font đã cài trên máy, hoặc file đặt trong thư mục assets */
+@font-face{font-family:"TC Title";src:url("assets/UTM Alexander.ttf") format("truetype"),local("UTM Alexander");font-display:block}
+:root{
+  --bg-home:url(assets/bia.jpg); --bg-slide:url(assets/nen.jpg);
+  --title:#C00000; --text:#111; --btn-bg:#FFE699; --btn-bd:#C00000; --btn-tx:#7a0000;
+  --cell:#e2f0d9; --cell-bd:#2f5597; --head:#fbe5d6;
+}
+body.tim{ --title:#FFFFFF; --text:#FFFFFF; --btn-bg:#E9D8FF; --btn-bd:#FFFFFF; --btn-tx:#3b0f5c; --cell:#5b2a86; --cell-bd:#d9c2f0; --head:#7a3fb0; }
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;font-family:Arial,"Segoe UI",Helvetica,sans-serif;background:#000;color:var(--text)}
+.screen{position:fixed;inset:0;display:none;background:#fff var(--bg-slide) center/cover no-repeat}
+.screen.on{display:block}
+body.tim .screen{background:radial-gradient(ellipse at 50% 30%,rgba(123,63,179,.86) 0%,rgba(74,26,114,.9) 45%,rgba(42,11,68,.95) 100%),var(--bg-slide) center/cover no-repeat}
+.logo{position:absolute;top:2.2vh;right:2vw;height:11vh;opacity:.95;cursor:pointer;z-index:5;transition:transform .15s}
+.logo:hover{transform:scale(1.08)}
+body.tim .logo{filter:drop-shadow(0 0 6px rgba(255,255,255,.6))}
+h1.ttl{position:absolute;left:2.5vw;top:2vh;right:14vw;margin:0;color:var(--title);font-size:5.6vh;font-weight:bold;line-height:1.15}
+/* ----- trang chủ ----- */
+#home{background:#000 var(--bg-home) center/cover no-repeat}
+body.tim #home{background:linear-gradient(rgba(60,15,95,.72),rgba(40,8,65,.8)),var(--bg-home) center/cover no-repeat}
+#home{--h-tx:#fff;--h-ac:#ffe600;--h-ac2:#ffe699;--h-box:rgba(0,0,0,.35);--h-sh:0 .15vh .5vh rgba(0,0,0,.55)}
+#home .thang{position:absolute;left:4vw;top:5vh;color:var(--h-tx);font-size:8vh;letter-spacing:.2vh;border-bottom:.3vh solid var(--h-tx);padding-bottom:.3vh;text-shadow:var(--h-sh)}
+#home .ycn{position:absolute;left:4vw;top:34vh;width:52vw;color:var(--h-tx);text-shadow:var(--h-sh)}
+#home .ycn b{display:block;color:var(--h-ac);font-size:3.6vh;font-weight:normal;margin-bottom:1.4vh}
+#home .ycn p{margin:0;font-size:3.1vh;line-height:1.55;text-align:justify}
+#home .homnay{position:absolute;left:4vw;top:20vh;background:var(--h-box);border:.25vh solid var(--h-ac2);color:var(--h-tx);border-radius:1.2vh;padding:1.2vh 2vw;font-size:2.9vh;cursor:pointer;max-width:60vw}
+#home .homnay small{display:block;color:var(--h-ac2);font-size:2.2vh;margin-bottom:.4vh}
+.menu{position:absolute;left:0;right:0;bottom:3.5vh;display:flex;justify-content:center;gap:1.6vw;flex-wrap:wrap}
+.btn{background:var(--btn-bg);color:var(--btn-tx);border:.35vh solid var(--btn-bd);border-radius:1vh;font-weight:bold;font-size:2.7vh;padding:1vh 1.6vw;cursor:pointer;font-family:inherit;box-shadow:0 .4vh .8vh rgba(0,0,0,.35)}
+.btn:hover{filter:brightness(1.08);transform:translateY(-.2vh)}
+.btn.x{background:#e2786e;color:#fff;border-color:#fff}
+.corner{position:absolute;right:1.2vw;top:15vh;display:flex;flex-direction:column;gap:1vh;z-index:6}
+.corner button{width:4.6vh;height:4.6vh;border:0;border-radius:50%;background:rgba(70,70,70,.55);color:#e8e8e8;cursor:pointer;opacity:.7;transition:opacity .2s,background .2s;padding:0;display:flex;align-items:center;justify-content:center}
+.corner button svg{width:2.5vh;height:2.5vh}
+.corner button:hover,.corner button:focus-visible{opacity:1;background:rgba(50,50,50,.85);color:#fff}
+.back{position:absolute;left:2.5vw;bottom:2.5vh}
+/* ----- danh sách ----- */
+.list{position:absolute;left:2.5vw;right:2.5vw;top:11vh;bottom:11vh;overflow-y:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1.4vh 1.4vw;align-content:start;padding:.5vh}
+.list button{background:rgba(255,255,255,.72);border:.3vh solid var(--cell-bd);color:#1f3864;font-size:2.8vh;font-weight:bold;padding:1.6vh 1vw;border-radius:1vh;cursor:pointer;text-align:left;font-family:inherit;line-height:1.25}
+body.tim .list button{background:rgba(255,255,255,.12);color:#fff}
+.list button:hover{background:#fff2cc}
+body.tim .list button:hover{background:rgba(255,255,255,.28)}
+.list button small{display:block;font-weight:normal;font-size:1.9vh;color:#7a0000;margin-top:.3vh}
+body.tim .list button small{color:#e9d8ff}
+.search{position:absolute;right:15vw;top:3vh;width:30vw;font-size:2.6vh;padding:.8vh 1vw;border-radius:1vh;border:.3vh solid var(--cell-bd);font-family:inherit}
+.cats{grid-template-columns:repeat(4,1fr)}
+.cats button{text-align:center;background:var(--btn-bg);color:var(--btn-tx);border-color:var(--btn-bd)}
+/* ----- lịch tháng ----- */
+.cal{position:absolute;left:1.5vw;right:1.5vw;top:10.5vh;bottom:9vh;display:grid;grid-template-columns:repeat(7,1fr);gap:.6vh .4vw}
+#cal{background:linear-gradient(#e2d9c6,#d6ccb6)}
+body.tim #cal{background:linear-gradient(#e2d6ee,#d3c3e6)}
+body.tim #cal h1.ttl{color:#5b2a86}
+.cal .h{color:#4e463a;font-size:1.9vh;text-align:center;align-self:end;padding-bottom:.3vh;font-weight:bold;letter-spacing:.2vh}
+.cal .h:first-child{color:#b3261e}
+body.tim .cal .h{color:#6d5a82}
+body.tim .cal .h:first-child{color:#b3261e}
+#cal .logo{height:8vh;top:1.6vh}
+.cal .c{--lc:#5aa546;--lt:#f3f8ef;background:var(--lt);border:.15vh solid rgba(90,70,40,.28);border-top:.9vh solid var(--lc);border-radius:.9vh;position:relative;cursor:pointer;padding:.5vh .5vw .6vh;text-align:center;overflow:hidden;color:#222;display:flex;flex-direction:column;justify-content:flex-start;box-shadow:0 .3vh .9vh rgba(60,40,10,.18);transition:box-shadow .15s,transform .15s}
+.cal .c.col-X{--lc:#4f9a3c;--lt:#f2f8ee}
+.cal .c.col-Tr{--lc:#d4b04a;--lt:#fffdf6}
+.cal .c.col-D{--lc:#c0392b;--lt:#fdf1f0}
+.cal .c.col-Tm{--lc:#7b4bb3;--lt:#f5f0fb}
+.cal .c.col-H{--lc:#e38bb3;--lt:#fdf2f7}
+.cal .c:hover{box-shadow:0 .6vh 1.4vh rgba(60,40,10,.18);transform:translateY(-.2vh);z-index:2}
+.cal .c .n{align-self:flex-end;font-size:3vh;font-weight:bold;color:#3a3a3a;line-height:1}
+.cal .c:nth-child(7n+8) .n{color:#b3261e}
+.cal .c .s{font-size:2.1vh;font-weight:bold;color:#1f3f8f;line-height:1.15;margin-top:.1vh}
+.cal .c .nm{font-size:2.15vh;line-height:1.18;margin-top:.3vh;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.cal .c .nm.long{font-size:1.9vh}
+.cal .c .nm.two{-webkit-line-clamp:2}
+.cal .c .nm.rT{color:#b3261e;text-transform:uppercase;font-weight:bold}
+.cal .c .nm.rK{color:#1f4fc0;text-transform:uppercase;font-weight:bold}
+.cal .c .nm.rD{color:#4b2a73;text-transform:uppercase;font-weight:bold}
+.cal .c .nm.rN{color:#222;font-weight:bold}
+.cal .c .nm.rG{font-style:italic;color:#6b6357;font-size:1.85vh}
+.cal .c .rk{margin-top:auto;align-self:center;font-size:1.55vh;font-weight:bold;letter-spacing:.15vh;padding:.25vh .7vw;border-radius:2vh;line-height:1.2}
+.cal .c .rk.rT{background:#b3261e;color:#fff}
+.cal .c .rk.rK{background:#1f4fc0;color:#fff}
+.cal .c .rk.rN{border:.15vh solid #8a8172;color:#4a443b}
+.cal .c .o{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;font-size:1.8vh;font-style:italic;color:#6b6357;margin-top:.3vh;line-height:1.15}
+.cal .c.out{opacity:.35}
+.cal .c.past{opacity:.5;filter:saturate(.35)}
+.cal .c.past:hover{opacity:1;filter:none}
+.cal .c.today{outline:.45vh solid #e0a800;outline-offset:-.1vh}
+.cal .c.miss .n::after{content:" •";color:#e00000}
+.calnav{position:absolute;right:15vw;top:2.3vh;display:flex;gap:.8vw}
+.newtag{position:absolute;top:-1vh;right:-.6vw;background:#e00000;color:#fff;font-size:1.5vh;font-weight:bold;padding:.2vh .6vw;border-radius:.6vh;transform:rotate(8deg);box-shadow:0 .3vh .6vh rgba(0,0,0,.35);letter-spacing:.1vh}
+/* ----- trình chiếu ----- */
+#show .body{position:absolute;left:2.5vw;right:2.5vw;top:14vh;bottom:5vh;overflow:hidden;font-weight:bold;color:var(--text);text-align:justify;line-height:1.3;white-space:pre-line}
+#show .body .red{color:var(--title)}
+#show .pg{position:absolute;right:1.2vw;bottom:.6vh;font-size:1.8vh;color:rgba(0,0,0,.45)}
+body.tim #show .pg{color:rgba(255,255,255,.55)}
+#show .ctl{position:absolute;bottom:1vh;left:1vw;display:flex;gap:.6vw;opacity:0;transition:opacity .3s}
+#show.mouse .ctl{opacity:1}
+#show .ctl button,#show .tools button{font-size:2vh;height:4.6vh;padding:0 1vw;display:inline-flex;align-items:center;justify-content:center}
+#show .ctl button.ico{width:5vh;padding:0}
+#show .tools .sz{height:4.6vh;display:inline-flex;align-items:center;justify-content:center}
+/* ----- soạn bài ----- */
+#edit{background:#f4f1ea;overflow-y:auto;color:#111}
+body.tim #edit{background:#f4f1ea}
+#edit .wrap{max-width:1100px;margin:0 auto;padding:24px 20px 80px;font-size:16px}
+#edit h2{color:#C00000;margin:0 0 6px}
+#edit .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+#edit .tabs button{font-size:15px;padding:8px 14px;border:2px solid #C00000;background:#fff;color:#7a0000;border-radius:8px;cursor:pointer;font-weight:bold}
+#edit .tabs button.on{background:#e2786e;color:#fff;border-color:#e2786e}
+#edit .pane{display:none;background:#fff;border-radius:10px;padding:18px;box-shadow:0 1px 4px rgba(0,0,0,.15)}
+#edit .pane.on{display:block}
+#edit label{display:block;font-weight:bold;margin:12px 0 4px}
+#edit input[type=text],#edit textarea,#edit select{width:100%;font-size:16px;padding:8px;border:1px solid #aaa;border-radius:6px;font-family:inherit}
+#edit textarea{min-height:220px;line-height:1.45}
+#edit .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+#edit .chk{display:inline-flex;gap:4px;align-items:center;margin:3px 10px 3px 0;font-weight:normal}
+#edit .act{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+#edit .act button,#edit .small{font-size:15px;padding:8px 16px;border-radius:8px;border:2px solid #2f5597;background:#2f5597;color:#fff;cursor:pointer;font-weight:bold}
+#edit .act button.ghost,#edit .small.ghost{background:#fff;color:#2f5597}
+#edit .small{padding:4px 10px;font-size:13px}
+#edit .prev{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px;margin-top:12px}
+#edit .prev div{background:#fffbe6;border:1px solid #e6c200;border-radius:6px;padding:8px;font-size:13px;white-space:pre-line}
+#edit .prev div b{color:#C00000;display:block;margin-bottom:4px}
+#edit table{width:100%;border-collapse:collapse;font-size:14px}
+#edit td,#edit th{border-bottom:1px solid #ddd;padding:6px;text-align:left;vertical-align:top}
+#edit .note{background:#eef4ff;border-left:4px solid #2f5597;padding:10px 12px;margin:10px 0;font-size:14px;line-height:1.5}
+#edit .warn{background:#fff3f3;border-left-color:#C00000}
+#edit .dirty{position:fixed;right:18px;bottom:18px;background:#e2786e;color:#fff;padding:10px 16px;border-radius:10px;font-weight:bold;display:none;box-shadow:0 2px 8px rgba(0,0,0,.3);cursor:pointer}
+
+/* ----- chèn bài / chương trình ----- */
+.list button{position:relative;padding-right:5vh}
+.list .plus{position:absolute;right:.8vh;top:50%;transform:translateY(-50%);width:3.8vh;height:3.8vh;line-height:3.6vh;text-align:center;border-radius:50%;background:#2f5597;color:#fff;font-size:2.6vh;font-weight:bold}
+.list .plus:hover{background:#e2786e}
+.list .plus.in{background:#2e7d32}
+.cats button{padding-right:1vw}
+#list.picking .ttl::after{content:"  – bấm vào bài để chèn";font-size:2.4vh;font-weight:normal}
+#prog .bar{position:absolute;left:2.5vw;right:15vw;top:10vh;display:flex;gap:1vw;flex-wrap:wrap;align-items:center}
+#prog .bar input,#prog .bar select{font-size:2.3vh;padding:.7vh .8vw;border-radius:.8vh;border:.25vh solid var(--cell-bd);font-family:inherit;max-width:28vw}
+#prog .plist{position:absolute;left:2.5vw;right:2.5vw;top:25vh;bottom:11vh;overflow-y:auto}
+#prog .bar{top:15.2vh;right:40vw}
+#prog .bar:not(.lowbar) .btn{font-size:2.5vh;height:6vh;box-sizing:border-box;padding:0 1.6vw}
+#prog .lowbar{top:auto;bottom:2.5vh;left:auto;right:2.5vw;justify-content:flex-end;flex-wrap:nowrap}
+#prog .back,#prog .lowbar .btn,#prog .lowbar input,#prog .lowbar select{font-size:2.3vh;height:5.8vh;box-sizing:border-box;padding:0 1.4vw;display:inline-flex;align-items:center}
+#prog .lowbar input{width:22vw;background:rgba(255,255,255,.92)}
+#prog .lowbar select{width:18vw;background:rgba(255,255,255,.92)}
+
+#prog .gowrap{position:absolute;right:2.5vw;top:14vh;display:flex;flex-direction:row-reverse;align-items:center;gap:1.2vw}
+#prog .gohint{font-size:2.1vh;color:#1f3864;background:rgba(255,255,255,.8);padding:.8vh 1vw;border-radius:.8vh;max-width:24vw}
+#prog .gohint.ok{color:#1d6b2a;font-weight:bold}
+body.tim #prog .gohint{background:rgba(255,255,255,.9)}
+#prog .pi{display:flex;align-items:center;gap:.8vw;background:rgba(255,255,255,.78);border:.25vh solid var(--cell-bd);border-radius:1vh;margin-bottom:1vh;padding:1vh 1vw}
+body.tim #prog .pi{background:rgba(255,255,255,.14)}
+#prog .pi .no{font-size:3vh;font-weight:bold;color:var(--title);width:4vh;text-align:center}
+#prog .pi .lb{flex:1;font-size:2.8vh;font-weight:bold;color:#1f3864;cursor:pointer}
+body.tim #prog .pi .lb{color:#fff}
+#prog .pi .lb:hover{text-decoration:underline}
+.list button small.fl,#prog .pi .lb small.fl{display:block;font-weight:normal;font-style:italic;font-size:1.8vh;color:#555;margin-top:.4vh;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body.tim .list button small.fl,body.tim #prog .pi .lb small.fl{color:#e9d8ff}
+#prog .sm{font-size:2.2vh;padding:.5vh .9vw;border-radius:.7vh;border:.2vh solid #2f5597;background:#fff;color:#2f5597;cursor:pointer;font-weight:bold}
+#prog .sm.x{border-color:#C00000;color:#C00000}
+#prog .empty{font-size:2.8vh;line-height:1.6;background:rgba(255,255,255,.7);padding:2vh 2vw;border-radius:1vh;color:#333}
+#show .tools{position:absolute;bottom:1vh;right:6vw;display:flex;gap:.5vw;align-items:center;opacity:0;transition:opacity .3s}
+#show.mouse .tools{opacity:1}
+
+#show .tools button.on{background:#2f5597;color:#fff;border-color:#fff}
+#show .tools .sz{font-size:1.9vh;background:rgba(255,255,255,.8);color:#000;border-radius:.6vh;padding:.5vh .6vw;min-width:5vw;text-align:center}
+#toast{position:fixed;left:50%;bottom:12vh;transform:translateX(-50%);background:rgba(0,0,0,.82);color:#fff;font-size:2.4vh;padding:1.2vh 2vw;border-radius:1vh;opacity:0;pointer-events:none;transition:opacity .25s;z-index:99;max-width:80vw;text-align:center}
+#toast.on{opacity:1}
+
+#prog .pi .part{min-width:14vw;font-size:2.5vh;font-weight:bold;color:#7a1a12;background:#f6d3cd;border:.2vh solid #e2a39a;border-radius:.8vh;padding:.8vh .8vw;text-align:center}
+body.tim #prog .pi .part{background:#fff;color:#3b0f5c}
+#prog .pi .lb.empty1{color:#C00000;font-style:italic;font-weight:normal}
+body.tim #prog .pi .lb.empty1{color:#ffe699}
+#prog .btn.go{background:#e2786e;color:#fff;border:.4vh solid #ffd966;font-size:3.6vh;padding:1.4vh 2.4vw;border-radius:1.4vh;box-shadow:0 .6vh 1.6vh rgba(0,0,0,.3)}
+#prog .btn.go.ready{animation:goPulse 1.1s ease-in-out infinite}
+@keyframes goPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,210,0,.9);transform:scale(1);background:#e2786e}50%{box-shadow:0 0 0 1.4vh rgba(255,210,0,0);transform:scale(1.07);background:#ef9a90}}
+#prog select.btn{font-size:2.5vh}
+.list button.more{grid-column:1/-1;text-align:center;background:var(--btn-bg);color:var(--btn-tx);border-color:var(--btn-bd);padding-right:1vw}
+#le{background:#000 url(assets/bia.jpg) center/cover no-repeat}
+body.tim #le{background:linear-gradient(rgba(60,15,95,.72),rgba(40,8,65,.8)),url(assets/bia.jpg) center/cover no-repeat}
+#le .lehead{position:absolute;left:4vw;top:4vh;color:#fff}
+#le .lename{font-size:6.5vh;border-bottom:.3vh solid #fff;padding-bottom:.4vh}
+#le .ledate{font-size:2.8vh;color:#ffe699;margin-top:1vh}
+#le .lebox{position:absolute;left:4vw;right:4vw;top:24vh;bottom:13vh;display:grid;grid-template-columns:repeat(auto-fill,minmax(26vw,1fr));gap:1.6vh 1.4vw;align-content:start;overflow-y:auto}
+.lebtn{background:rgba(0,0,0,.45);border:.3vh solid #ffe699;border-radius:1.2vh;color:#fff;text-align:left;padding:2.2vh 1.4vw;cursor:pointer;font-family:inherit}
+.lebtn b{display:block;color:#ffe699;font-size:3.8vh;margin-bottom:.6vh}
+.lebtn span{font-size:2.9vh}
+.lebtn:hover{background:rgba(0,0,0,.65)}
+.lebtn.next{background:rgba(226,120,110,.8);border-color:#fff;box-shadow:0 0 2vh rgba(255,230,153,.7)}
+.lebtn.next b::after{content:"  ◀ tiếp theo";font-size:2vh;color:#fff;font-weight:normal}
+#modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:50}
+#modal.on{display:flex}
+#modal .mbox{background:#fffdf5;border:.3vh solid #d8b780;border-radius:2vh;padding:3vh 3vw;width:min(62vw,900px);text-align:center;box-shadow:0 2vh 6vh rgba(0,0,0,.5)}
+#modal h2{color:#8b0000;font-size:3.2vh;margin:1.2vh 0 2vh}
+#modal .mbtn{display:block;width:100%;margin:1.2vh 0;background:#fff;color:#7a0000;border:.25vh solid #e2c9a0;border-left:1vh solid #C00000;border-radius:1.2vh;padding:1.5vh 1.8vw;font-size:2.5vh;font-weight:bold;cursor:pointer;font-family:inherit;text-align:left;box-shadow:0 .3vh .8vh rgba(0,0,0,.12);transition:background .15s,transform .15s}
+#modal .mbtn:hover{background:#fff6e0;transform:translateY(-.2vh)}
+#modal .mbtn small{display:block;font-weight:normal;font-size:1.8vh;margin-top:.5vh;color:#555}
+#modal .mbtn.plain{border-left-color:#d9a400}
+#modal #mCont{border-left-color:#2f5597;color:#1f3864}
+
+/* trang chủ ở chế độ thánh lễ: nút lớn giữa màn hình */
+#home .massmenu,#home .massdate,#home .homnext{display:none}
+#home.mass .massmenu{display:flex}
+#home.mass .massdate{display:block}
+#home.mass .mainmenu,#home.mass .ycn,#home.mass #hToday{display:none}
+#home.mass .thang{top:5vh;font-size:5.6vh;max-width:62vw;line-height:1.2;letter-spacing:.1vh}
+#home .massdate{position:absolute;left:4vw;top:21vh;color:var(--h-ac2);font-size:2.8vh;text-shadow:var(--h-sh)}
+#home .homnext{top:25.5vh}
+#home .massparts{display:contents}
+#home .massmenu .btn{font-size:2.5vh;display:flex;flex-direction:column;align-items:center;max-width:17vw}
+#home .massmenu .btn small{font-size:1.5vh;font-weight:normal;max-width:15vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:.2vh}
+#home .massmenu .btn.next{background:#e2786e;color:#fff;border-color:#fff;box-shadow:0 0 1.6vh rgba(255,230,153,.9)}
+#home .massmenu .tool{background:rgba(255,255,255,.75);font-size:2vh;align-self:center}
+h1.ttl,#home .thang,#modal h2,#le .lename{font-family:"TC Title",Arial,"Segoe UI",sans-serif}
+
+#prog .savedbtn{position:absolute;right:2.5vw;bottom:2.5vh;font-size:2.3vh;height:5.8vh;box-sizing:border-box;padding:0 1.6vw}
+#savedModal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:60}
+#savedModal.on{display:flex}
+#savedModal .svbox{background:#fffdf5;border:.3vh solid #d8b780;border-radius:2vh;padding:2.6vh 2.4vw;width:min(70vw,1000px);max-height:86vh;display:flex;flex-direction:column;box-shadow:0 2vh 6vh rgba(0,0,0,.5)}
+#savedModal h2{font-family:"TC Title",Arial,sans-serif;color:#8b0000;font-size:3.4vh;margin:0 0 1.6vh}
+#savedModal label{font-size:2vh;color:#555}
+.svline{display:flex;gap:1vw;margin:.8vh 0 2vh}
+.svline input{flex:1;font-size:2.3vh;padding:0 1vw;height:5.4vh;border:.25vh solid #c9b28a;border-radius:1vh;font-family:inherit}
+.svlist{overflow-y:auto;border-top:.2vh solid #eadbbd;padding-top:1.4vh}
+.svrow{display:flex;align-items:center;gap:1vw;padding:1.2vh 1vw;border:.2vh solid #eadbbd;border-radius:1.2vh;margin-bottom:1vh;background:#fff}
+.svtx{flex:1;min-width:0}
+.svtx b{display:block;font-size:2.5vh;color:#1f3864}
+.svtx small{display:block;font-size:1.7vh;color:#666;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.svempty{font-size:2.2vh;color:#666;text-align:center;padding:2vh}
+.sbtn{font-size:2.2vh;height:5.2vh;padding:0 1.6vw;border-radius:1vh;border:.25vh solid #c9b28a;background:#fff6dc;color:#6b3a00;font-weight:bold;cursor:pointer;font-family:inherit;white-space:nowrap}
+.sbtn:hover{filter:brightness(1.05)}
+.sbtn.save{background:#e2786e;color:#fff;border-color:#e2786e}
+.sbtn.open{background:#eaf2ff;color:#1f3864;border-color:#9fb6de}
+.sbtn.del{background:#fdecea;color:#b3261e;border-color:#e8a29b}
+.sbtn.ic{width:6.4vh;padding:0;font-size:2.9vh;display:inline-flex;align-items:center;justify-content:center}
+#savedModal .svbox{position:relative}
+.svclose{position:absolute;top:1.4vh;right:1.2vw;width:5vh;height:5vh;border-radius:50%;border:.25vh solid #d8b780;background:#fff;color:#8b0000;font-size:2.6vh;cursor:pointer}
+.svclose:hover{background:#fff1d6}
+
+#bgModal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:60}
+#bgModal.on{display:flex}
+#bgModal .svbox{position:relative;background:#fffdf5;border:.3vh solid #d8b780;border-radius:2vh;padding:2.6vh 2.4vw;width:min(74vw,1100px);box-shadow:0 2vh 6vh rgba(0,0,0,.5)}
+#bgModal h2{font-family:"TC Title",Arial,sans-serif;color:#8b0000;font-size:3.4vh;margin:0 0 1.4vh}
+.bgsec{margin-bottom:2vh}.bgsec label{font-size:2.2vh;color:#333;font-weight:bold}
+.bgrow{display:flex;gap:1vw;margin-top:1vh;flex-wrap:wrap}
+.bgth{width:14vw;height:7.9vw;border-radius:1vh;border:.35vh solid #e6d6b4;background:#eee center/cover no-repeat;cursor:pointer;position:relative;padding:0}
+.bgth.on{border-color:#e2786e;box-shadow:0 0 0 .4vh rgba(226,120,110,.35)}
+.bgth.on::after{content:"✓";position:absolute;top:.4vh;right:.5vw;background:#e2786e;color:#fff;border-radius:50%;width:3vh;height:3vh;line-height:3vh;font-size:1.9vh;text-align:center}
+.bgth.add{background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:4vh;color:#8b6a2b}
+.bgth.add small{font-size:1.6vh;margin-top:.4vh}
+.bgnote{font-size:1.7vh;color:#666;margin:0}
+@media (max-aspect-ratio:1/1){ .list{grid-template-columns:1fr 1fr} .cats{grid-template-columns:1fr 1fr} }
+</style>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#8a1c1c">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+</head>
+<body>
+<!-- TRANG CHỦ -->
+<section id="home" class="screen">
+  <div class="thang" id="hThang">THÁNG</div>
+  <div class="homnay" id="hToday"></div>
+  <div class="ycn" id="hYcn"></div>
+  <div class="massdate" id="hMassDate"></div>
+  <div class="homnay homnext" id="hNext"></div>
+  <div class="menu massmenu">
+    <span class="massparts" id="hMass"></span>
+    <button class="btn tool" onclick="openProg()" title="Sửa các bài đã chọn">✎ SỬA</button>
+    <button class="btn tool" onclick="massEnd()" title="Về cuốn thánh ca, tự chọn bài">📖 CUỐN THÁNH CA</button>
+  </div>
+  <img class="logo" src="assets/logo.png" alt="Trang chủ" title="Về trang chủ">
+  <div class="corner">
+    <button onclick="toggleFS()" title="Toàn màn hình"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+    <button onclick="openBg()" title="Đổi hình nền"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="M21 17l-5-5-9 8"/></svg></button>
+  </div>
+  <div class="menu mainmenu">
+    <button class="btn" onclick="openCat('NHẬP LỄ')">NHẬP LỄ</button>
+    <button class="btn" onclick="openCal()">ĐÁP CA</button>
+    <button class="btn" onclick="openCat('DÂNG LỄ')">DÂNG LỄ</button>
+    <button class="btn" onclick="openCat('HIỆP LỄ')">HIỆP LỄ</button>
+    <button class="btn" onclick="openCat('KẾT LỄ')">KẾT LỄ</button>
+    <button class="btn" onclick="openAll()">TỔNG HỢP</button>
+    <button class="btn" id="hProg" onclick="openProg()">CHỌN BÀI THÁNH LỄ</button>
+    <button class="btn x" onclick="closeApp()" title="Thoát">✕</button>
+  </div>
+</section>
+
+<!-- DANH SÁCH -->
+<section id="list" class="screen">
+  <h1 class="ttl" id="lTitle"></h1>
+  <input class="search" id="lSearch" placeholder="🔍 Tìm tên bài…" oninput="renderList()">
+  <img class="logo" src="assets/logo.png" alt="Trang chủ" title="Về trang chủ">
+  <div class="list" id="lBox"></div>
+  <button class="btn back" onclick="goBack()">◀ QUAY LẠI</button>
+</section>
+
+<!-- LỊCH THÁNG -->
+<section id="cal" class="screen">
+  <h1 class="ttl" id="cTitle"></h1>
+  <div class="calnav">
+    <button class="btn" onclick="calMove(-1)">◀</button>
+    <button class="btn" onclick="calToday()">THÁNG NÀY</button>
+    <button class="btn" onclick="calMove(1)">▶</button>
+  </div>
+  <img class="logo" src="assets/logo.png" alt="Trang chủ" title="Về trang chủ">
+  <div class="cal" id="cBox"></div>
+  <button class="btn back" onclick="goHome()">◀ TRANG CHỦ</button>
+</section>
+
+
+<!-- CHỌN BÀI CHO THÁNH LỄ -->
+<section id="prog" class="screen">
+  <h1 class="ttl">CHỌN BÀI CHO THÁNH LỄ</h1>
+  <img class="logo" src="assets/logo.png" alt="Trang chủ" title="Về trang chủ">
+  <div class="bar">
+    <select id="pAddPart" class="btn" onchange="progAddPart()"></select>
+    <button class="btn" onclick="progNew()">LÀM LẠI</button>
+  </div>
+  <div class="gowrap">
+    <button class="btn go" onclick="progGo()">▶ VÀO THÁNH LỄ</button>
+    <div class="gohint" id="pHint"></div>
+  </div>
+  <div class="plist" id="pBox"></div>
+  <button class="btn back" onclick="goHome()">◀ TRANG CHỦ</button>
+  <button class="btn savedbtn" id="pSavedBtn" onclick="openSaved()">📁 BỘ LỄ ĐÃ LƯU</button>
+</section>
+
+<!-- TRANG THÁNH LỄ -->
+<section id="le" class="screen">
+  <div class="lehead"><div class="lename" id="leName"></div><div class="ledate" id="leDate"></div></div>
+  <img class="logo" src="assets/logo.png" alt="Trang chủ" title="Về trang chủ">
+  <div class="lebox" id="leBox"></div>
+  <div class="menu">
+    <button class="btn" onclick="openProg()">✎ SỬA BÀI ĐÃ CHỌN</button>
+    <button class="btn" onclick="goHome()">TRANG CHỦ</button>
+  </div>
+</section>
+
+<!-- HỘP THOẠI KHI MỞ -->
+<div id="modal">
+  <div class="mbox">
+    <img src="assets/logo.png" alt="" style="height:12vh">
+    <h2>Cộng đoàn muốn sử dụng thế nào?</h2>
+    <button class="mbtn" id="mCont" onclick="modeCont()"></button>
+    <button class="mbtn" onclick="modeMass()">🎼 SOẠN SẴN CÁC BÀI HÁT HÔM NAY<small>Chọn trước ca nhập lễ, đáp ca – Alleluia, dâng lễ, hiệp lễ, kết lễ… rồi chiếu theo thứ tự</small></button>
+    <button class="mbtn plain" onclick="modeDefault()">📖 TỰ CHỌN CÁC BÀI HÁT<small>Mở cuốn thánh ca, chọn bài lúc nào cần</small></button>
+  </div>
+</div>
+
+<!-- TRÌNH CHIẾU -->
+<section id="show" class="screen">
+  <h1 class="ttl" id="sTitle"></h1>
+  <img class="logo" src="assets/logo.png" alt="Trang chủ" title="Về trang chủ">
+  <div class="body" id="sBody"></div>
+  <div class="pg" id="sPg"></div>
+  <div class="ctl">
+    <button class="btn" onclick="goBack()">◀ QUAY LẠI</button>
+    <button class="btn ico" onclick="step(-1)" title="Slide trước (phím ←)">◀</button>
+    <button class="btn ico" onclick="step(1)" title="Slide sau (phím →)">▶</button>
+    <button class="btn" onclick="goHome()">TRANG CHỦ</button>
+  </div>
+  <div class="tools">
+    <button class="btn" id="sAlt" onclick="swapAlt()" title="Đổi giữa bài theo lịch và bài riêng lễ thánh" style="display:none"></button>
+    <button class="btn" onclick="fontStep(-0.5)" title="Chữ nhỏ lại (phím -)">A−</button>
+    <span class="sz" id="sSize"></span>
+    <button class="btn" onclick="fontStep(0.5)" title="Chữ to lên (phím +)">A+</button>
+    <button class="btn" id="sFill" onclick="fontFill()" title="Tự động cho chữ đầy màn hình (phím A)">TỰ ĐỘNG</button>
+  </div>
+</section>
+<div id="toast"></div>
+<!-- HỘP ĐỔI HÌNH NỀN -->
+<div id="bgModal" onclick="if(event.target===this)closeBg()">
+  <div class="svbox">
+    <button class="svclose" onclick="closeBg()" title="Đóng">✕</button>
+    <h2>Đổi hình nền</h2>
+    <div class="bgsec"><label>Hình nền trang chủ</label><div class="bgrow" id="bgHome"></div></div>
+    <div class="bgsec"><label>Hình nền khi chiếu lời bài hát</label><div class="bgrow" id="bgSlide"></div></div>
+    <p class="bgnote">Ảnh tự chọn được lưu trên máy này. Mùa Vọng và Mùa Chay vẫn tự phủ màu tím lên hình.</p>
+    <input type="file" id="bgFile" accept="image/*" style="display:none" onchange="bgPicked(this)">
+  </div>
+</div>
+<!-- HỘP CHƯƠNG TRÌNH ĐÃ LƯU -->
+<div id="savedModal" onclick="if(event.target===this)closeSaved()">
+  <div class="svbox">
+    <h2>Bộ lễ đã lưu</h2>
+    <div class="svsave">
+      <label>Đặt tên rồi bấm 💾 để lưu các bài đang chọn thành một bộ lễ:</label>
+      <div class="svline"><input id="svName" placeholder="Tên, VD: Quan thầy An Xá"><button class="sbtn ic save" onclick="savedSave()" title="Lưu">💾</button></div>
+    </div>
+    <div class="svlist" id="svList"></div>
+    <button class="svclose" onclick="closeSaved()" title="Đóng">✕</button>
+  </div>
+</div>
+
+<!-- SOẠN BÀI -->
+<section id="edit" class="screen">
+  <div class="wrap">
+    <div class="row" style="justify-content:space-between">
+      <h2>Soạn bài – cập nhật cuốn thánh ca</h2>
+      <button class="small ghost" onclick="goHome()">◀ Về trang chủ</button>
+    </div>
+    <div class="note">Mỗi lần bấm nút <b>Lưu</b> / <b>Thêm vào cuốn</b>, máy ghi thẳng vào file <b>data.js</b> trong thư mục cuốn thánh ca. <b>Chỉ lần đầu tiên</b> máy nhờ anh chọn file data.js (nằm cạnh file THANH CA.html) và bấm “Cho phép chỉnh sửa”. Từ đó về sau không hỏi nữa.</div>
+    <div class="tabs" id="eTabs">
+      <button data-p="pAdd" class="on">➕ Thêm bài mới</button>
+      <button data-p="pFix">✏️ Sửa bài có sẵn</button>
+      <button data-p="pDap">📅 Đáp ca còn thiếu</button>
+      <button data-p="pYcn">🙏 Ý cầu nguyện tháng</button>
+      <button data-p="pSave">💾 File dữ liệu</button>
+    </div>
+
+    <div class="pane on" id="pAdd">
+      <label>Tên bài</label>
+      <input type="text" id="aTitle" placeholder="VD: MỪNG THÁNH TÊRÊSA AVILA">
+      <label>Xếp vào mục (chọn một hay nhiều)</label>
+      <div id="aCats"></div>
+      <label>Lời bài hát</label>
+      <div class="note">Mỗi đoạn một dòng, bắt đầu bằng <b>ĐK:</b> hoặc <b>1.</b>, <b>2.</b>… Chỉ cần gõ ĐK một lần, máy tự lặp lại sau mỗi phiên khúc. Dòng tác giả (không bắt đầu bằng ĐK/số) sẽ được bỏ qua.</div>
+      <textarea id="aLyr" oninput="previewAdd()" placeholder="ĐK: …&#10;1. …&#10;2. …"></textarea>
+      <div class="row" style="margin-top:8px">
+        <label class="chk"><input type="checkbox" id="aRepeat" checked onchange="previewAdd()"> Tự lặp ĐK sau mỗi phiên khúc</label>
+        <label class="chk"><input type="checkbox" id="aCase" checked onchange="previewAdd()"> Tự viết hoa đầu câu</label>
+      </div>
+      <div class="act">
+        <button onclick="saveAdd()">Thêm vào cuốn</button>
+        <button class="ghost" onclick="clearAdd()">Làm lại</button>
+      </div>
+      <div class="prev" id="aPrev"></div>
+      <h3 style="margin-top:26px">Bài đã thêm</h3>
+      <table id="aList"></table>
+    </div>
+
+    <div class="pane" id="pFix">
+      <label>Chọn bài</label>
+      <input type="text" id="fFind" placeholder="Gõ vài chữ trong tên bài…" oninput="fixFind()">
+      <select id="fSel" size="8" onchange="fixLoad()"></select>
+      <label>Tên bài</label>
+      <input type="text" id="fTitle">
+      <label>Nội dung – mỗi slide cách nhau bằng một dòng trống</label>
+      <textarea id="fBody" style="min-height:360px"></textarea>
+      <label>Mục</label>
+      <div id="fCats"></div>
+      <div class="act"><button onclick="fixSave()">Lưu sửa đổi</button><button class="ghost" onclick="fixDelete()">Xoá bài này</button></div>
+    </div>
+
+    <div class="pane" id="pDap">
+      <div class="note">Danh sách các ngày trong 13 tháng tới mà kho <b>chưa có</b> đáp ca. Anh gõ ĐC và Alleluia (lấy từ CGKPV) rồi bấm Lưu. Cũng có thể gõ một mã bất kỳ để sửa (xem mã khi bấm vào ngày trong lịch).</div>
+      <table id="dMiss"></table>
+      <h3 style="margin-top:24px">Sửa đáp ca theo mã</h3>
+      <div class="row"><input type="text" id="dKey" placeholder="VD: TN30-4-CHAN" style="max-width:260px"><button class="small" onclick="dapLoad()">Mở</button></div>
+      <label>Tiêu đề slide</label><input type="text" id="dT">
+      <label>Đáp ca (không cần gõ “ĐC:”)</label><textarea id="dDc" style="min-height:70px"></textarea>
+      <label>Alleluia / Tung hô Tin Mừng</label><textarea id="dAcc" style="min-height:110px"></textarea>
+      <div class="act"><button onclick="dapSave()">Lưu đáp ca</button></div>
+    </div>
+
+    <div class="pane" id="pYcn">
+      <label>Tháng</label><input type="month" id="yM" onchange="ycnLoad()" style="font-size:16px;padding:6px">
+      <label>Tiêu đề ý cầu nguyện</label><input type="text" id="yT">
+      <label>Nội dung</label><textarea id="yX" style="min-height:120px"></textarea>
+      <div class="act"><button onclick="ycnSave()">Lưu</button></div>
+    </div>
+
+    <div class="pane" id="pSave">
+      <div class="note">Bình thường anh không cần vào đây: mọi nút Lưu đã tự ghi vào data.js. Chỉ dùng khi đổi máy, chuyển thư mục, hoặc máy báo không ghi được.</div>
+      <div class="act"><button onclick="saveData()">💾 Lưu lại ngay</button><button class="ghost" onclick="relinkFile()">📂 Chọn lại file data.js</button><button class="ghost" onclick="discardDraft()">Bỏ các thay đổi chưa lưu</button></div>
+      <p id="sInfo"></p>
+    </div>
+  </div>
+  <div class="dirty" id="eDirty" onclick="eTab('pSave')">● Chưa ghi được vào data.js – bấm để lưu</div>
+</section>
+
+<script src="goi.js"></script>
+<script src="boot.js"></script>
+<script>if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js")</script>
+</body>
+</html>

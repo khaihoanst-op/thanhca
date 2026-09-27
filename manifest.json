@@ -1,0 +1,16 @@
+{
+  "name": "Thánh Ca Cộng Đồng",
+  "short_name": "Thánh Ca",
+  "description": "Cuốn thánh ca cộng đồng – tự động đáp ca theo lịch phụng vụ",
+  "lang": "vi",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "display_override": ["fullscreen", "standalone"],
+  "background_color": "#1a120b",
+  "theme_color": "#8a1c1c",
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
