@@ -71,6 +71,7 @@
     var w = document.createElement('div'); w.id = 'tcWm';
     w.textContent = '© ' + (P.owner || 'THÁNH CA CỘNG ĐỒNG') + ' - ' + String(L.n).toUpperCase();
     w.setAttribute('data-lic', L.i); document.body.appendChild(w);
+    document.title = 'Thánh Ca Cộng Đồng – ' + L.n;
     if (L.e) {
       var left = Math.round((new Date(L.e) - new Date(ymd(new Date()))) / 86400000);
       if (left <= 30) {
