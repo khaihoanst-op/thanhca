@@ -215,6 +215,18 @@ body.tim #le{background:linear-gradient(rgba(60,15,95,.72),rgba(40,8,65,.8)),url
 #home .massmenu .btn small{font-size:1.5vh;font-weight:normal;max-width:15vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:.2vh}
 #home .massmenu .btn.next{background:#e2786e;color:#fff;border-color:#fff;box-shadow:0 0 1.6vh rgba(255,230,153,.9)}
 #home .massmenu .tool{background:rgba(255,255,255,.75);font-size:2vh;align-self:center}
+/* bố cục chữ trang chủ (kéo thả được) */
+#home:not(.mass) #hThang{left:var(--thang-x,4vw);top:var(--thang-y,5vh);transform:scale(var(--thang-s,1));transform-origin:0 0}
+#home:not(.mass) #hToday{left:var(--today-x,4vw);top:var(--today-y,20vh);transform:scale(var(--today-s,1));transform-origin:0 0}
+#home:not(.mass) #hYcn{left:var(--ycn-x,4vw);top:var(--ycn-y,34vh);transform:scale(var(--ycn-s,1));transform-origin:0 0}
+#home.layout #hThang,#home.layout #hToday,#home.layout #hYcn{outline:.3vh dashed rgba(255,255,255,.9);outline-offset:.6vh;cursor:move;user-select:none;touch-action:none;box-shadow:0 0 0 .6vh rgba(0,0,0,.25)}
+#home.layout #hYcn:empty::before{content:'(Ý cầu nguyện tháng – chưa có nội dung)';font-size:2.4vh;opacity:.8}
+#home.layout .lsel{outline:.4vh solid #ffd966 !important}
+#home.layout .corner,#home.layout .mainmenu{opacity:.35;pointer-events:none}
+#layBar{position:fixed;left:50%;top:1.5vh;transform:translateX(-50%);z-index:80;display:none;gap:.6vw;align-items:center;background:rgba(20,14,8,.85);color:#fff;border-radius:1.2vh;padding:1vh 1.2vw;font:1.9vh Arial,sans-serif;box-shadow:0 .6vh 2vh rgba(0,0,0,.4)}
+#layBar.on{display:flex}
+#layBar button{font:bold 1.9vh Arial,sans-serif;border:0;border-radius:.8vh;padding:.8vh 1vw;cursor:pointer;background:#e9e2d4;color:#222}
+#layBar button.ok{background:#2f6b3a;color:#fff}
 h1.ttl,#home .thang,#modal h2,#le .lename{font-family:"TC Title",Arial,"Segoe UI",sans-serif}
 
 #prog .savedbtn{position:absolute;right:2.5vw;bottom:2.5vh;font-size:2.3vh;height:5.8vh;box-sizing:border-box;padding:0 1.6vw}
@@ -265,6 +277,7 @@ h1.ttl,#home .thang,#modal h2,#le .lename{font-family:"TC Title",Arial,"Segoe UI
   <div class="thang" id="hThang">THÁNG</div>
   <div class="homnay" id="hToday"></div>
   <div class="ycn" id="hYcn"></div>
+  <div id="layBar"><span>Kéo các khối chữ tới chỗ muốn đặt · bấm chọn một khối rồi đổi cỡ:</span><button onclick="layScale(-1)">A−</button><button onclick="layScale(1)">A+</button><button onclick="layReset()">↺ Mặc định</button><button onclick="layCancel()">Huỷ</button><button class="ok" onclick="layDone()">✓ Xong</button></div>
   <div class="massdate" id="hMassDate"></div>
   <div class="homnay homnext" id="hNext"></div>
   <div class="menu massmenu">
@@ -381,6 +394,8 @@ h1.ttl,#home .thang,#modal h2,#le .lename{font-family:"TC Title",Arial,"Segoe UI
     <div class="bgsec"><label>Hình nền trang chủ</label><div class="bgrow" id="bgHome"></div></div>
     <div class="bgsec"><label>Hình nền khi chiếu lời bài hát</label><div class="bgrow" id="bgSlide"></div></div>
     <p class="bgnote">Ảnh tự chọn được lưu trên máy này. Mùa Vọng và Mùa Chay vẫn tự phủ màu tím lên hình.</p>
+    <div style="margin-top:8px"><button class="btn" style="font-size:1.9vh;padding:.8vh 1.2vw" onclick="layStart()">✥ Sắp xếp chữ trên trang chủ</button></div>
+    <div class="bgnote" id="bgPub" style="margin-top:10px;padding:10px 12px;border:1px dashed #c9bfae;border-radius:10px;background:#fffaf0"></div>
     <input type="file" id="bgFile" accept="image/*" style="display:none" onchange="bgPicked(this)">
   </div>
 </div>
