@@ -112,4 +112,19 @@
     catch (e) { lockScreen(typeof e === 'string' ? e : 'Có lỗi khi mở cuốn thánh ca.'); if (window.console) console.error(e); }
   }
   start();
+
+  // bản cài từ mạng: tự kiểm tra bản mới; có bản mới thì tự mở lại cho người dùng
+  if ('serviceWorker' in navigator && location.protocol === 'https:') {
+    var hadCtl = !!navigator.serviceWorker.controller, reloading = false;
+    navigator.serviceWorker.register('sw.js').then(function (reg) {
+      setInterval(function () { reg.update().catch(function () {}); }, 30 * 60000);
+      document.addEventListener('visibilitychange', function () { if (!document.hidden) reg.update().catch(function () {}); });
+    }).catch(function () {});
+    navigator.serviceWorker.addEventListener('controllerchange', function () {
+      if (!hadCtl || reloading) return;
+      var busy = document.getElementById('show') && document.getElementById('show').classList.contains('on');
+      if (busy) return;                          // đang chiếu bài thì không tự mở lại
+      reloading = true; location.reload();
+    });
+  }
 })();
